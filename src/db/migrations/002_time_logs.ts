@@ -11,7 +11,7 @@ export async function up(db: Kysely<Database>): Promise<void> {
     .addColumn('user_id', 'integer', (col) =>
       col.references('users.id').onDelete('cascade').notNull(),
     )
-    .addColumn('hours', 'double precision', (col) => col.notNull())
+    .addColumn('hours', 'numeric', (col) => col.notNull())
     .addColumn('logged_at', 'timestamptz', (col) =>
       col.defaultTo(sql`CURRENT_TIMESTAMP`).notNull(),
     )

@@ -6,7 +6,7 @@ export async function insertTimeLog(
   userId: number,
   hours: number,
 ): Promise<TimeLog> {
-  return await db
+  const row = await db
     .insertInto('time_logs')
     .values({
       ticket_id: ticketId,
@@ -15,6 +15,8 @@ export async function insertTimeLog(
     })
     .returningAll()
     .executeTakeFirstOrThrow();
+
+  return { ...row, hours: Number(row.hours) };
 }
 
 export async function getTotalHoursForTicket(
